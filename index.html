@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ky.agm</title>
+        
+        <!-- Link to icon css and local stylesheet -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        
+        <!-- For responsiveness -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- JS script -->
+        <script>
+            // Tab navigation function
+            function showSection(id) {
+                // Works with inline onclick() to hide and 
+                // display components based on navigation tab clicked
+                // id = ('about', 'hobbies', 'contact')
+
+                // Remove all active tags just to make sure no 2 tabs are active at the same time
+                const actives = document.querySelectorAll('.active');
+                actives.forEach(el => el.classList.remove('active'));
+                
+                // Check which tab-nav was clicked
+                const tabs = document.querySelectorAll('.tab-nav');
+                tabs.forEach(tab => {
+                    if (tab.getAttribute('onclick').includes(id)) {
+                        tab.classList.add('active');
+                    }
+                });
+
+                // Add active to tab content and img
+                const targets = document.querySelectorAll('.' + id);
+                targets.forEach(el => el.classList.add('active'));
+            }
+        </script>
+    </head>
+
+    <body>
+        <main id="main-container">
+            <div class="info-panel">
+                <header>
+                    <h1>Kyla Andrea G. Mendoza</h1>
+                    <h2>Data Engineer</h2>
+                    <nav>
+                        <ul>
+                            <li class="tab-nav active" onclick="showSection('about')">About Me</li>
+                            <li class="tab-nav" onclick="showSection('hobbies')">Hobbies & Interests</li>
+                            <li class="tab-nav" onclick="showSection('contact')">Contact</li>
+                        </ul>
+                    </nav>
+                </header>
+                    
+                <article>
+                    <section class="tab-content about active">
+                        <p>
+                            Hi! I work full-time as a data engineer in a consulting firm. 
+                            I'm an alumna of the For The Women (FTW) Foundation's Data Science program and 
+                            I've worked part-time with them as a support instructor for their first Data Engineering cohort. 
+                        </p>
+                        <br/>
+                        <p>
+                            I'm currently taking up Diploma in Computer Science at UPOU and I'm expecting to graduate by the end of this semester.
+                            Aside from the DCS program, I also plan to take the AWS Data Engineer Associate certification on the 2nd half of 2026. 
+                        </p>
+                    </section>
+
+                    <section class="tab-content hobbies">
+                        <ul>
+                            <li>
+                                <strong>Reading classics:</strong>
+                                I like reading classic fiction, usually written before the 21st century. It's the closest you can get to conversing with a person who lived centuries ago.
+                            </li>
+                            <li>
+                                <strong>Gaming:</strong>
+                                Mostly single-player RPGs. Current main game is <em>Where Winds Meet</em>.
+                            </li>
+                            <li>
+                                <strong>Tiramisu 🌟:</strong>
+                                Kindly look to the image to see my pet hamster, Tiramisu. I recommend getting one. He's low maintenance, quiet, and fluffy. In fact, he's only awake during the night.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="tab-content contact">
+                        <p>Let's connect! You can reach me via email or using my professional links below.</p>
+                        <div>
+                            <a href="https://www.google.com/gmail" target="_blank">
+                                <i class="fa-solid fa-envelope"></i> Email Me
+                            </a>
+                            <a href="https://www.linkedin.com" target="_blank">
+                                <i class="fa-brands fa-linkedin"></i> LinkedIn
+                            </a>
+                            <a href="https://github.com" target="_blank">
+                                <i class="fa-brands fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </section>
+                </article>
+
+                <footer>
+                    <p>This website was made in fulfillment of the Midterm Mini-Project requirement for CMSC 207 S.Y. 2025-2026, 2nd semester</p>
+                </footer>
+            </div>
+            <aside class="portrait-panel">
+                <img class="active about" src="images/about.jpeg" alt="Image of a young Filipina woman." />
+                <img class="hobbies" src="images/hobbies.jpg" alt="Image of a light brown long-haired Syrian hamster." />
+                <img class="contact" src="images/contact.jpeg" alt="Selfie of a young Filipina woman in formal clothing." />
+            </aside>
+        </main>
+    </body>
+</html>

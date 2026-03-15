@@ -1,0 +1,259 @@
+/* Font imports */
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&display=swap');
+
+/* Global styling 
+    - border-box to include margins and padding in total width and height
+    - hard set margin and padding to 0
+ */
+* { 
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hex palette */
+:root {
+    /* Colors */
+    --purple: #966b9d;
+    --reddish: #c98686;
+    --yellow: #f2b880;
+    --bg: #fff4ec;
+    --text: #434343;
+    --brown: #714e49;
+
+    /* Font */
+    --font-header: 'Cormorant Garamond', serif;
+    --font-body: 'Quicksand', sans-serif;
+}
+
+/* Styling for the tab content transitions */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(2px); /* Adds a nice "lifting" effect */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+body {
+    background-color: var(--bg);
+    overflow: hidden; /* Scrolling disabled by default*/
+    /* font */
+    font-family: var(--font-body);
+    color: var(--text);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* main flexbox container 
+    - occupies the whole screen dimension
+*/
+#main-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* no scrolling */
+}
+
+    /* Left side */
+    .info-panel {
+        flex: 1.5;
+        display: flex;
+        flex-direction: column;
+        padding: 60px;
+        background-color: var(--bg);
+        overflow: hidden; 
+    }
+
+        /* Turn nav list into a menu bar */
+        header nav ul {
+            display: flex;
+            flex-direction: row;
+            list-style: none;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+            h1, h2{
+                font-family: var(--font-header);
+                color: var(--brown);
+                letter-spacing: 1px;
+                font-weight: 700;
+            }
+
+            /* Customize menu bar */
+            .tab-nav {
+                border-bottom: 2px solid transparent; /* Transparent by default -> will be set in active */
+                padding-bottom: 5px;
+                cursor: pointer;
+                font-family: var(--font-header);
+                font-weight: 600;
+                color: var(--purple);
+                transition: all 0.3s ease;
+            }
+
+                /* Hover effects
+                    - change font color
+                    - emboss (?)
+                */
+                .tab-nav:hover {
+                    color: var(--reddish);
+                    transform: translateY(-2px);
+                }
+
+                .tab-nav.active {
+                    color: var(--reddish);
+                    border-bottom: 2px solid var(--yellow); 
+                }
+
+        article {
+            overflow-y: auto; /* Scrolls within this area only */
+            flex: 1;
+            margin-top: 40px;
+        }
+
+            .tab-content {
+                display: none;
+            }
+
+                .tab-content.active {
+                    display: block; 
+                    animation: fadeIn 0.25s ease-in-out;
+                }
+
+            .hobbies ul {
+                /* Need to manually set since we reset padding and margin to 0 in root  */
+                padding-left: 20px;  
+                margin-top: 15px;
+            }
+
+                .hobbies li {
+                    margin-bottom: 15px;
+                    line-height: 1.6;
+                }
+
+                    .hobbies li::marker {
+                        color: var(--reddish);
+                        content: '✦ ';
+                    }
+            
+            /* Format contact links */
+            .contact div {
+                display: flex;
+                gap: 15px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                margin-top: 25px;
+            }
+
+                .contact a {
+                    /* Font */
+                    text-decoration: none;
+                    font-family: var(--font-header);
+                    font-size: 0.9rem;
+                    color: var(--purple);
+
+                    /* Create button like border */
+                    border: 1px solid var(--purple);
+                    border-radius: 10px;
+                    padding: 10px 15px;
+
+                    transition: all 0.3s ease;
+                }
+
+                .contact a:hover {
+                    background-color: var(--purple);
+                    color: white;
+                }
+
+
+        footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--yellow);
+
+            /* Font */
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+            color: var(--purple);
+            opacity: 0.75;
+            text-emphasis: center;
+        }
+
+    /* Right side */
+    .portrait-panel {
+        flex: 1; /* Allocate remaining space after info-panel */
+        background-color: var(--bg);
+        
+        /* Ensure image is dead center */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+        .portrait-panel img {
+            /* Stack imgs on top of each other */
+            position: absolute;
+            max-height: 90%;
+            max-width: 80%;
+            object-fit: cover;
+            border-radius: 8px;
+
+            /* img transition logic */
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none; /* for invisible imgs */
+        }
+
+        .portrait-panel img.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+/* Responsiveness 
+    - for smaller screens
+*/
+
+@media (max-width: 768px) {
+    #main-container {
+        /* Vertical layout that allows scrolling */
+        flex-direction: column; 
+        overflow-y: auto;
+    }
+
+        .portrait-panel {
+            flex: none;
+            height: 40vh;
+            order: -1; /* Put it on top of flex order */
+        }
+
+        .info-panel {
+            flex: none;
+            padding: 30px 20px;
+            overflow: visible; /* No inner scroll */
+        }
+
+            header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            header nav ul {
+                /* Allow wrapping if needed */
+                flex-wrap: wrap; 
+                justify-content: center;
+                gap: 10px
+            }
+
+            footer {
+                margin-top: 20px;
+            }
+}
